@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {               
-                git branch: 'main', credentialsId: 'git-for-jenkins', url: 'https://github.com/vk2011/docker-fastapi-test.git'                    
+                git branch: 'main', credentialsId: 'git-for-jenkins', url: 'https://github.com/vk2011/FastAPI-test-docker.git'                    
             }
         }
         stage('Docker-compose Build'){
