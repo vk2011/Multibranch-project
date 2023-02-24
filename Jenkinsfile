@@ -3,10 +3,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
-              
-                // withcredentials(usernamePassword(credentialsId : 'git-for-jenkins' , usernameVariable : 'USERNAME' , passwordVariable : 'PASSWORD'))
-                
+            steps {               
                 git branch: 'main', credentialsId: 'git-for-jenkins', url: 'https://github.com/vk2011/docker-fastapi-test.git'                    
             }
         }
