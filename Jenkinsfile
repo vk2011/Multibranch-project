@@ -46,6 +46,7 @@ pipeline {
                         sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
                         }    
                         bat "docker-compose up"
+                        
                     }
                 }
             }
