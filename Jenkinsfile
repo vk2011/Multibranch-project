@@ -46,7 +46,7 @@ pipeline {
             environment {
                 REMOTE_HOST = credentials("FastAPI-${DEPLOY_ENV}-remote-host")
                 REMOTE_USER = credentials("FastAPI-${DEPLOY_ENV}-remote-user")
-                RWD = "-p deployments/FastAPI/${DEPLOY_ENV}"
+                RWD = "deployments/FastAPI/${DEPLOY_ENV}"
             }
             steps {
                 sshagent(["windows-ssh-key"]) {
@@ -55,7 +55,7 @@ pipeline {
                     // Check SSH Connection
                     sh 'ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} "ls"'
                     sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "rm -rf ${RWD}"'
-                    sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "mkdir ${RWD}"'
+                    sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "mkdir -p ${RWD}"'
 
 
                     // Transfer required files on server
