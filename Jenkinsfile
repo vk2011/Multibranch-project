@@ -42,39 +42,41 @@ pipeline {
                 
             
         }
-//         stage('deploy_dev'){
-//             when {
-//                 branch "dev"
-//             } 
-//             steps{
-//                 sshagent(['windows-ssh-key']) {
-//                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
-//                 }
-//                 bat "docker-compose up"
-//             }
-//         }
-//         stage('deploy_qa'){
-//             when {
-//                 branch "qa"
-//             } 
-//             steps{
-//                 sshagent(['windows-ssh-key']) {
-//                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
-//                 }
-//                 bat "docker-compose up"
-//             }
-//         }
-//         stage('deploy_main'){
-//             when {
-//                 branch "main"
-//             } 
-//             steps{
-//                 sshagent(['windows-ssh-key']) {
-//                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
-//                 }
-//                 bat "docker-compose up"
-//             }
-//         }    
+        stage('deploy_dev'){
+            when {
+                expression {env.DEPLOY_ENV == branch "dev"}
+            } 
+            steps{
+                sshagent(['windows-ssh-key']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
+                }
+                echo 'deploying on dev server'
+                bat "docker-compose up"
+            }
+        }
+        stage('deploy_qa'){
+            when {
+                expression {env.DEPLOY_ENV == branch "qa"}
+            steps{
+                sshagent(['windows-ssh-key']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
+                }
+                echo 'deploying on qa server'
+                bat "docker-compose up"
+            }
+        }
+        stage('deploy_main'){
+            when {
+                expression {env.DEPLOY_ENV == branch "main"}
+            } 
+            steps{
+                sshagent(['windows-ssh-key']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
+                }
+                echo 'deploying on main server'
+                bat "docker-compose up"
+            }
+        }    
                 
      }
  }
