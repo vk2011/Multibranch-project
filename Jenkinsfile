@@ -9,22 +9,20 @@ pipeline {
             }
         }
         stage('Docker-compose Build'){
-                when {
-                    branch "dev"
-                }
-                steps{
-                    sshagent(['windows-ssh-key']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
-                    }                    
-                    // bat "docker info"
-                    bat "docker --version"
-                    bat "docker-compose --version"
-                    bat "docker container prune -f"
-                    bat "docker-compose build"                        
-                    // bat "docker-compose up"                   
-                }
-                
-            
+            when {
+                branch "dev"
+            }
+            steps{
+                sshagent(['windows-ssh-key']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
+                }                    
+                // bat "docker info"
+                bat "docker --version"
+                bat "docker-compose --version"
+                bat "docker container prune -f"
+                bat "docker-compose build"                        
+                // bat "docker-compose up"                   
+            }    
         }
         stage('deploy_dev'){
             when {
@@ -34,6 +32,7 @@ pipeline {
                 sshagent(['windows-ssh-key']) {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
+                echo 'Diploying on dev server'
                 bat "docker-compose up"
             }
         }
@@ -45,6 +44,7 @@ pipeline {
                 sshagent(['windows-ssh-key']) {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
+                echo 'deploying on qa server'
                 bat "docker-compose up"
             }
         }
@@ -56,9 +56,10 @@ pipeline {
                 sshagent(['windows-ssh-key']) {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
+                echo 'deploying on prod server'
                 bat "docker-compose up"
             }
-            
+
         }            
     }
 }
