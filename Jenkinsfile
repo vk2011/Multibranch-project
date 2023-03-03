@@ -10,11 +10,11 @@ pipeline {
         stage('Docker-compose Build'){
             steps{
                 when {
-                    expression { env.BRANCH_NAME == 'dev' }
+                    expression { env.BRANCH_NAME == 'main' }
                 }
                 steps{
                     sshagent(['windows-ssh-key']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'               
+                    sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
                     } 
                 }   
                 steps{                    
@@ -28,15 +28,15 @@ pipeline {
                 
             }
         }
-        stage('docker-compose up'){
-            steps{
-                steps{
-                    when(env.BRANCH_NAME == 'dev'){ 
-                        sshagent(['windows-ssh-key']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
-                        }
-                        bat "docker-compose up"
-                    }
+        // stage('docker-compose up'){
+        //     steps{
+        //         steps{
+        //             when(env.BRANCH_NAME == 'main'){ 
+        //                 sshagent(['windows-ssh-key']) {
+        //                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
+        //                 }
+        //                 bat "docker-compose up"
+        //             }
                     // when(env.BRANCH_NAME == 'qa'){
                     //     sshagent(['credential ID']) {
                     //     sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
@@ -52,6 +52,6 @@ pipeline {
                     // }             
                 }
             }
-        }   
-    }
-}
+//         }   
+//     }
+// }
