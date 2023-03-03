@@ -14,9 +14,7 @@ pipeline {
                 steps{
                     sshagent(['windows-ssh-key']) {
                     sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
-                    } 
-                }   
-                steps{                    
+                    }                    
                     // bat "docker info"
                     bat "docker --version"
                     bat "docker-compose --version"
@@ -27,30 +25,30 @@ pipeline {
                 
             
         }
-        stage('docker-compose up'){
-            steps{
-                steps{
-                    when(env.BRANCH_NAME == 'main'){ 
-                        sshagent(['windows-ssh-key']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
-                        }
-                        bat "docker-compose up"
-                    }
-                    when(env.BRANCH_NAME == 'qa'){
-                        sshagent(['credential ID']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
-                        }    
-                        bat "docker-compose up"
-                    }
-                    when(env.BRANCH_NAME == 'qa'){
-                        sshagent(['credential ID']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
-                        }    
-                        bat "docker-compose up"
+        // stage('docker-compose up'){
+        //     steps{
+        //         steps{
+        //             when(env.BRANCH_NAME == 'main'){ 
+        //                 sshagent(['windows-ssh-key']) {
+        //                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
+        //                 }
+        //                 bat "docker-compose up"
+        //             }
+        //             when(env.BRANCH_NAME == 'qa'){
+        //                 sshagent(['credential ID']) {
+        //                 sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
+        //                 }    
+        //                 bat "docker-compose up"
+        //             }
+        //             when(env.BRANCH_NAME == 'qa'){
+        //                 sshagent(['credential ID']) {
+        //                 sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
+        //                 }    
+        //                 bat "docker-compose up"
 
-                    }             
-                }
-            }
-        }   
+        //             }             
+        //         }
+        //     }
+        // }   
     }
 }
