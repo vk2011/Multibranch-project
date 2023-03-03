@@ -13,10 +13,10 @@ pipeline {
             steps {
                 script{
                     switch(env.GIT_BRANCH) {
-                        case 'origin/qa':
+                        case 'qa':
                             env.DEPLOY_ENV = "qa"
                             break
-                        case 'origin/main':
+                        case 'main':
                             env.DEPLOY_ENV = "main"
                             break
                         default:
