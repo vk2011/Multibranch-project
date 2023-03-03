@@ -28,9 +28,6 @@ pipeline {
             }
         }
         stage('Docker-compose Build'){
-                when {
-                    branch 'DEPLOY_ENV=${DEPLOY_ENV}'
-                }
                 steps{
                     sshagent(['windows-ssh-key']) {
                     sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
