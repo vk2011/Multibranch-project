@@ -3,13 +3,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {               
-                git branch: '*', credentialsId: 'git-for-jenkins', url: 'https://github.com/vk2011/Multibranch-project.git'
+                git branch: 'main', credentialsId: 'git-for-jenkins', url: 'https://github.com/vk2011/Multibranch-project.git'
+                sh 'echo "Branch name: ${GIT_BRANCH}"'
                 echo 'git pull successful'                   
             }
         }
         stage('Docker-compose Build'){
                 when {
-                    branch "*"
+                    branch "dev"
                 }
                 steps{
                     sshagent(['windows-ssh-key']) {
