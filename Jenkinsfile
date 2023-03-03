@@ -97,7 +97,7 @@ pipeline {
                 expression {env.DEPLOY_ENV == 'main'}
             } 
             steps{
-                sshagent(['']) {
+                sshagent(['windows-ssh-key']) {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
                 echo 'deploying on prod server'
