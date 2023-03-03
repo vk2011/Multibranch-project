@@ -11,12 +11,12 @@ pipeline {
                 when {
                     expression { env.BRANCH_NAME == 'production' }
                 }
-                step{
+                steps{
                     sshagent(['windows-ssh-key']) {
                     sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'               
                     } 
                 }   
-                step{                    
+                steps{                    
                     // bat "docker info"
                     bat "docker --version"
                     bat "docker-compose --version"
@@ -29,7 +29,7 @@ pipeline {
         }
         stage('docker-compose up'){
             steps{
-                step{
+                steps{
                     when(env.BRANCH_NAME == 'dev'){ 
                         sshagent(['windows-ssh-key']) {
                         sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
