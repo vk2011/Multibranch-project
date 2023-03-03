@@ -59,7 +59,7 @@ pipeline {
 
 
                     // Transfer required files on server
-                    sh 'scp -r images.tar ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
+                    sh 'scp -r image.tar ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
                     sh 'scp -r docker/docker-compose.yml ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
                     sh 'scp -r docker/compose/dev.yml ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
                 }
