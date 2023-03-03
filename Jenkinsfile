@@ -9,42 +9,42 @@ pipeline {
                 echo 'git pull successful'                   
             }
         }
-        // stage ('Declare Variables'){
-        //     steps {
-        //         script{
-        //             switch(env.GIT_BRANCH) {
-        //                 case 'origin/qa':
-        //                     env.DEPLOY_ENV = "qa"
-        //                     break
-        //                 case 'origin/main':
-        //                     env.DEPLOY_ENV = "main"
-        //                     break
-        //                 default:
-        //                     env.DEPLOY_ENV = "dev"
-        //                     break 
-        //             }
-        //         }
-        //         sh 'echo "${DEPLOY_ENV}"'
-        //     }
-        // }
-//         stage('Docker-compose Build'){
-//                 when {
-//                     branch '${DEPLOY_ENV}'
-//                 }
-//                 steps{
-//                     sshagent(['windows-ssh-key']) {
-//                     sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
-//                     }                    
-//                     // bat "docker info"
-//                     bat "docker --version"
-//                     bat "docker-compose --version"
-//                     bat "docker container prune -f"
-//                     bat "docker-compose build"                        
-//                     // bat "docker-compose up"                   
-//                 }
+        stage ('Declare Variables'){
+            steps {
+                script{
+                    switch(env.GIT_BRANCH) {
+                        case 'origin/qa':
+                            env.DEPLOY_ENV = "qa"
+                            break
+                        case 'origin/main':
+                            env.DEPLOY_ENV = "main"
+                            break
+                        default:
+                            env.DEPLOY_ENV = "dev"
+                            break 
+                    }
+                }
+                sh 'echo "${DEPLOY_ENV}"'
+            }
+        }
+        stage('Docker-compose Build'){
+                when {
+                    branch '${DEPLOY_ENV}'
+                }
+                steps{
+                    sshagent(['windows-ssh-key']) {
+                    sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
+                    }                    
+                    // bat "docker info"
+                    bat "docker --version"
+                    bat "docker-compose --version"
+                    bat "docker container prune -f"
+                    bat "docker-compose build"                        
+                    // bat "docker-compose up"                   
+                }
                 
             
-//         }
+        }
 //         stage('deploy_dev'){
 //             when {
 //                 branch "dev"
