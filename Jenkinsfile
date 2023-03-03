@@ -7,8 +7,8 @@ pipeline {
             }
         }
         stage('Docker-compose Build'){
-            when(env.BRANCH_NAME == 'dev'){
-                steps{
+            steps{
+                when(env.BRANCH_NAME == 'dev'){
                     step{
                         sshagent(['windows-ssh-key']) {
                         sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'               
@@ -19,9 +19,8 @@ pipeline {
                         bat "docker --version"
                         bat "docker-compose --version"
                         bat "docker container prune -f"
-                        bat "docker-compose build"
-                        // bat "docker-compose up"
-                        
+                        bat "docker-compose build"                        
+                        // bat "docker-compose up"                   
                     }
                 }
             }
