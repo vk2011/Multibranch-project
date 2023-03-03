@@ -10,7 +10,7 @@ pipeline {
             when(env.BRANCH_NAME == 'dev'){
                 steps{
                     step{
-                        sshagent(['credential ID']) {
+                        sshagent(['windows-ssh-key']) {
                         sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'               
                         } 
                     }   
@@ -30,24 +30,24 @@ pipeline {
             steps{
                 step{
                     when(env.BRANCH_NAME == 'dev'){ 
-                        sshagent(['credential ID']) {
+                        sshagent(['windows-ssh-key']) {
                         sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
                         }
                         bat "docker-compose up"
                     }
-                    when(env.BRANCH_NAME == 'qa'){
-                        sshagent(['credential ID']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
-                        }    
-                        bat "docker-compose up"
-                    }
-                    when(env.BRANCH_NAME == 'qa'){
-                        sshagent(['credential ID']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
-                        }    
-                        bat "docker-compose up"
-                        
-                    }
+                    // when(env.BRANCH_NAME == 'qa'){
+                    //     sshagent(['credential ID']) {
+                    //     sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
+                    //     }    
+                    //     bat "docker-compose up"
+                    // }
+                    // when(env.BRANCH_NAME == 'qa'){
+                    //     sshagent(['credential ID']) {
+                    //     sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
+                    //     }    
+                    //     bat "docker-compose up"
+
+                    // }
                 }
             }
         }   
