@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Docker-compose Build'){
                 when {
-                    branch "qa"
+                    branch '${BRANCH_NAME}'
                 }
                 steps{
                     sshagent(['windows-ssh-key']) {
