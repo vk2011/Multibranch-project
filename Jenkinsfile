@@ -36,7 +36,8 @@ pipeline {
                     bat "docker --version"
                     bat "docker-compose --version"
                     bat "docker container prune -f"
-                    bat "docker-compose build"                        
+                    bat "docker-compose build"
+                    echo "Build successful"                        
                     // bat "docker-compose up"                   
                 }
                 
