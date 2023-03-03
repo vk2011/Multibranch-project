@@ -8,21 +8,23 @@ pipeline {
         }
         stage('Docker-compose Build'){
             steps{
-                when(env.BRANCH_NAME == 'dev'){
-                    step{
-                        sshagent(['windows-ssh-key']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'               
-                        } 
-                    }   
-                    step{                    
-                        // bat "docker info"
-                        bat "docker --version"
-                        bat "docker-compose --version"
-                        bat "docker container prune -f"
-                        bat "docker-compose build"                        
-                        // bat "docker-compose up"                   
-                    }
+                when {
+                    expression { env.BRANCH_NAME == 'production' }
                 }
+                step{
+                    sshagent(['windows-ssh-key']) {
+                    sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'               
+                    } 
+                }   
+                step{                    
+                    // bat "docker info"
+                    bat "docker --version"
+                    bat "docker-compose --version"
+                    bat "docker container prune -f"
+                    bat "docker-compose build"                        
+                    // bat "docker-compose up"                   
+                }
+                
             }
         }
         stage('docker-compose up'){
