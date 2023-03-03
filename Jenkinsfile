@@ -44,7 +44,7 @@ pipeline {
         }
         stage('deploy_dev'){
             when {
-                expression {env.DEPLOY_ENV == branch 'dev'}
+                expression {env.DEPLOY_ENV == 'dev'}
             } 
             steps{
                 sshagent(['windows-ssh-key']) {
@@ -67,7 +67,7 @@ pipeline {
         }
         stage('deploy_main'){
             when {
-                expression {env.DEPLOY_ENV == branch 'main'}
+                expression {env.DEPLOY_ENV == 'main'}
             } 
             steps{
                 sshagent(['windows-ssh-key']) {
