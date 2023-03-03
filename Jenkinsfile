@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {               
-                git branch: '$GIT_BRANCH', credentialsId: 'git-for-jenkins', url: 'https://github.com/vk2011/Multibranch-project.git'
+                git branch: 'main', credentialsId: 'git-for-jenkins', url: 'https://github.com/vk2011/Multibranch-project.git'
                 echo 'git pull successful'                   
             }
         }
