@@ -57,6 +57,7 @@ pipeline {
         stage('deploy_qa'){
             when {
                 expression {env.DEPLOY_ENV == 'qa'}
+            }
             steps{
                 sshagent(['windows-ssh-key']) {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
@@ -78,5 +79,5 @@ pipeline {
             }
         }    
                 
-     }
- }
+    }
+}
