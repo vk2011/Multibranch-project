@@ -72,7 +72,7 @@ pipeline {
             } 
             steps{
                 sshagent(['windows-ssh-key']) {
-                sh 'ssh -o StrictHostKeyChecking=no -l ${REMOTE_USER}@${REMOTE_HOST}'                                         
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
                 echo 'deploying on dev server'
                 sh "docker-compose down"
@@ -85,7 +85,7 @@ pipeline {
             }
             steps{
                 sshagent(['windows-ssh-key']) {
-                sh 'ssh -o StrictHostKeyChecking=no -l ${REMOTE_USER}@${REMOTE_HOST}'                                         
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
                 echo 'deploying on qa server'
                 sh "docker-compose down"
@@ -97,8 +97,8 @@ pipeline {
                 expression {env.DEPLOY_ENV == 'main'}
             } 
             steps{
-                sshagent(['windows-ssh-key']) {
-                sh 'ssh -o StrictHostKeyChecking=no -l ${REMOTE_USER}@${REMOTE_HOST}'                                         
+                sshagent(['']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
                 echo 'deploying on prod server'
                 sh "docker-compose down"
