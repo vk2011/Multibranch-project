@@ -46,7 +46,7 @@ pipeline {
             environment {
                 REMOTE_HOST = credentials("FastAPI-${DEPLOY_ENV}-remote-host")
                 REMOTE_USER = credentials("FastAPI-${DEPLOY_ENV}-remote-user")
-                RWD = "/FastAPI/${DEPLOY_ENV}"
+                RWD = "-p deployments/FastAPI/${DEPLOY_ENV}"
             }
             steps {
                 sshagent(["windows-ssh-key"]) {
