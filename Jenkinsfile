@@ -44,7 +44,7 @@ pipeline {
         }
         stage('deploy_dev'){
             when {
-                expression {env.DEPLOY_ENV == branch "dev"}
+                expression {env.DEPLOY_ENV == branch 'dev'}
             } 
             steps{
                 sshagent(['windows-ssh-key']) {
@@ -56,7 +56,7 @@ pipeline {
         }
         stage('deploy_qa'){
             when {
-                expression {env.DEPLOY_ENV == branch "qa"}
+                expression {env.DEPLOY_ENV == branch 'qa'}
             steps{
                 sshagent(['windows-ssh-key']) {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
@@ -67,7 +67,7 @@ pipeline {
         }
         stage('deploy_main'){
             when {
-                expression {env.DEPLOY_ENV == branch "main"}
+                expression {env.DEPLOY_ENV == branch 'main'}
             } 
             steps{
                 sshagent(['windows-ssh-key']) {
