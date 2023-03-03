@@ -14,7 +14,7 @@ pipeline {
                 }
                 steps{
                     sshagent(['windows-ssh-key']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'               
+                    sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'               
                     } 
                 }   
                 steps{                    
@@ -33,7 +33,7 @@ pipeline {
                 steps{
                     when(env.BRANCH_NAME == 'dev'){ 
                         sshagent(['windows-ssh-key']) {
-                        sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
+                        sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                         }
                         bat "docker-compose up"
                     }
@@ -49,7 +49,7 @@ pipeline {
                     //     }    
                     //     bat "docker-compose up"
 
-                    // }
+                    // }             
                 }
             }
         }   
