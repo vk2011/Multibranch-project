@@ -39,36 +39,12 @@ pipeline {
                 sh "docker-compose build"
                 echo "Build successful"                        
                 // bat "docker-compose up"
-
+                 
 
 
             }
         }
-        // stage('transfer build code'){
-        //     environment {
-        //         REMOTE_HOST = credentials("FastAPI-${DEPLOY_ENV}-remote-host")
-        //         REMOTE_USER = credentials("FastAPI-${DEPLOY_ENV}-remote-user")
-        //         RWD = "deployments/FastAPI/${DEPLOY_ENV}"
-        //     }
-        //     steps {
-        //         sshagent(["windows-ssh-key"]) {
-
-        //             // Check SSH Connection
-        //             sh 'ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} "ls"'
-        //             sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "rm -rf ${RWD}"'
-        //             sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "mkdir ${RWD}"'
-
-        //             // Transfer required files on server
-        //             sh 'scp -r images.tar ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
-        //             sh 'scp -r docker/docker-compose.yml ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
-        //             sh 'scp -r docker/compose/dev.yml ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
-        //             sh 'scp -r ${ENV_FILE} ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
-
-        //         }
-        //     }       
-                
-            
-        // }
+        
         stage('deploy on dev'){
             when {
                 expression {env.DEPLOY_ENV == 'dev'}
