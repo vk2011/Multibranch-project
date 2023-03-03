@@ -26,34 +26,38 @@ pipeline {
                 
             
         }
-        stage('docker-compose up'){
-                when {
-                    branch "dev"
-                } 
-                steps{
-                    sshagent(['windows-ssh-key']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
-                    }
-                    bat "docker-compose up"
+        stage('deploy_dev'){
+            when {
+                branch "dev"
+            } 
+            steps{
+                sshagent(['windows-ssh-key']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
-                when {
-                    branch "qa"
+                bat "docker-compose up"
+            }
+        }
+        stage('deploy_qa'){
+            when {
+                branch "dev"
+            } 
+            steps{
+                sshagent(['windows-ssh-key']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
-                steps{ 
-                    sshagent(['credential ID']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
-                    }    
-                    bat "docker-compose up"
+                bat "docker-compose up"
+            }
+        }
+        stage('deploy_main'){
+            when {
+                branch "main"
+            } 
+            steps{
+                sshagent(['windows-ssh-key']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
-                     when {
-                    branch "main"
-                }
-                steps{
-                    sshagent(['credential ID']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l <username> <ipaddress>'                                         
-                    }    
-                    bat "docker-compose up"
-                }
-        }             
+                bat "docker-compose up"
+            }
+        }            
     }
 }
