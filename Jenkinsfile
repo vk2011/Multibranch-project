@@ -61,6 +61,5 @@ pipeline {
                 bat "docker-compose up"
             }
         }    
-
     }
 }
