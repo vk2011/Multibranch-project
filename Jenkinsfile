@@ -60,6 +60,7 @@ pipeline {
                 echo 'deploying on prod server'
                 bat "docker-compose up"
             }
+
         }    
     }
 }
