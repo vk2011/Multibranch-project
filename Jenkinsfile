@@ -28,22 +28,48 @@ pipeline {
             }
         }
         stage('Docker-compose Build'){
-                steps{
-                    sshagent(['windows-ssh-key']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
-                    }                    
-                    // bat "docker info"
-                    bat "docker --version"
-                    bat "docker-compose --version"
-                    bat "docker container prune -f"
-                    bat "docker-compose build"
-                    echo "Build successful"                        
-                    // bat "docker-compose up"                   
-                }
+            steps{
+                sshagent(['windows-ssh-key']) {
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a'               
+                }                    
+                // bat "docker info"
+                sh "docker --version"
+                sh "docker-compose --version"
+                sh "docker container prune -f"
+                sh "docker-compose build"
+                echo "Build successful"                        
+                // bat "docker-compose up"
+
+
+
+            }
+        }
+        // stage('transfer build code'){
+        //     environment {
+        //         REMOTE_HOST = credentials("FastAPI-${DEPLOY_ENV}-remote-host")
+        //         REMOTE_USER = credentials("FastAPI-${DEPLOY_ENV}-remote-user")
+        //         RWD = "deployments/FastAPI/${DEPLOY_ENV}"
+        //     }
+        //     steps {
+        //         sshagent(["windows-ssh-key"]) {
+
+        //             // Check SSH Connection
+        //             sh 'ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} "ls"'
+        //             sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "rm -rf ${RWD}"'
+        //             sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "mkdir ${RWD}"'
+
+        //             // Transfer required files on server
+        //             sh 'scp -r images.tar ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
+        //             sh 'scp -r docker/docker-compose.yml ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
+        //             sh 'scp -r docker/compose/dev.yml ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
+        //             sh 'scp -r ${ENV_FILE} ${REMOTE_USER}@${REMOTE_HOST}:${RWD}/'
+
+        //         }
+        //     }       
                 
             
-        }
-        stage('deploy_dev'){
+        // }
+        stage('deploy on dev'){
             when {
                 expression {env.DEPLOY_ENV == 'dev'}
             } 
@@ -52,10 +78,11 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
                 echo 'deploying on dev server'
-                bat "docker-compose up"
+                sh "docker-compose down"
+                sh "docker-compose up"
             }
         }
-        stage('deploy_qa'){
+        stage('deploy on qa'){
             when {
                 expression {env.DEPLOY_ENV == 'qa'}
             }
@@ -64,10 +91,11 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
                 echo 'deploying on qa server'
-                bat "docker-compose up"
+                sh "docker-compose down"
+                sh "docker-compose up"
             }
         }
-        stage('deploy_main'){
+        stage('deploy on prod'){
             when {
                 expression {env.DEPLOY_ENV == 'main'}
             } 
@@ -76,7 +104,8 @@ pipeline {
                 sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
                 }
                 echo 'deploying on prod server'
-                bat "docker-compose up"
+                sh "docker-compose down"
+                sh "docker-compose up"
             }
         }    
                 
