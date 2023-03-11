@@ -30,7 +30,11 @@ pipeline {
         stage('Docker-compose Build'){
             steps{
                 sshagent(['windows-ssh-key']) {
-                sh 'ssh -o StrictHostKeyChecking=no -l vedant@192.168.0.180 /bin/bash uname -a'               
+                    sshCommand remote: 'my-remote-server',
+                        user: 'vedant',
+                        port: 22,
+                        command: "ls -la"
+                // sh 'ssh -o StrictHostKeyChecking=no -l vedant@192.168.0.180 /bin/bash uname -a'               
                 }                    
                 // sh "docker info"
                 sh "docker --version"
