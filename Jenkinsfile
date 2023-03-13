@@ -72,7 +72,7 @@ pipeline {
             } 
             steps{
                 sshagent(['windows-ssh-key']) {
-                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant localhost'                                         
                 }
                 echo 'deploying on dev server'
                 sh "docker-compose down"
@@ -85,7 +85,7 @@ pipeline {
             }
             steps{
                 sshagent(['windows-ssh-key']) {
-                sh 'ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180'                                         
+                sh 'ssh -o StrictHostKeyChecking=no -l vedant localhost'                                         
                 }
                 echo 'deploying on qa server'
                 sh "docker-compose down"
