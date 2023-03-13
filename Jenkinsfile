@@ -36,7 +36,7 @@ pipeline {
                 sh "docker --version"
                 sh "docker-compose version"
                 // sh "docker container prune -f"
-                sh "docker-compose build"
+                sh "sudo docker-compose build"
                 echo "Build successful"                        
                 // sh "docker-compose up"
                 sh 'docker save docker.io/library/fastapi_image -o image.tar'
