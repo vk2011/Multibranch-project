@@ -35,7 +35,7 @@ pipeline {
                  }                    
                 sh "docker --version"
                 sh "docker-compose --version"
-                sh "docker container prune -f"
+                // sh "docker container prune -f"
                 sh "docker-compose build"
                 echo "Build successful"                        
                 // sh "docker-compose up"
