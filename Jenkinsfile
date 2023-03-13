@@ -31,7 +31,7 @@ pipeline {
             steps{
                 sshagent(['windows-ssh-key']) {
                     
-                sh "ssh -o StrictHostKeyChecking=no -l ${sshagent(['windows-ssh-key'])} vedant@192.168.0.180 'ls -la'"                
+                sh "ssh -o StrictHostKeyChecking=no -l vedant 192.168.0.180 uname -a"                
                  }                    
                 sh "docker --version"
                 sh "docker-compose --version"
