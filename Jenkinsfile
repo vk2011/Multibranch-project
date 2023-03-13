@@ -33,8 +33,6 @@ pipeline {
                     
                 sh "ssh -o StrictHostKeyChecking=no -i ${sshagent(['windows-ssh-key'])} vedant@192.168.0.180 'ls -la'"                
                  }                    
-        
-                }
                 sh "docker --version"
                 sh "docker-compose --version"
                 sh "docker container prune -f"
@@ -42,7 +40,8 @@ pipeline {
                 echo "Build successful"                        
                 // sh "docker-compose up"
                 sh 'docker save docker.io/library/fastapi_image -o image.tar'
-            }
+            }    
+        }
         stage('transfer build code'){
             environment {
                 REMOTE_HOST = credentials("FastAPI-${DEPLOY_ENV}-remote-host")
