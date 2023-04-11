@@ -8,11 +8,24 @@ services:
     image: fastapi_image
     container_name: fastAPI_container
     ports:
-      - 80:80
+      - "80:80"
     volumes:
       - myvol:/src/app/data/
     command: uvicorn app.main:app --host 0.0.0.0 --port 80
-
+    # logging:
+    #   driver: gelf
+    #   options:
+    #     gelf-address: "udp://localhost:12201"
+    #     tag: "fastapi"
+        
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "5"
+        compress: "false"
+        tag: "fastapi"
+        
 volumes:
   myvol:
   

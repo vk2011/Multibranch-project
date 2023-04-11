@@ -3,6 +3,7 @@ FROM python:3.9
 RUN mkdir /src
 WORKDIR /src
 COPY ./requirements.txt /src/requirements.txt
+#COPY <source> <destination>
 
 RUN apt-get update
 RUN pip install -r /src/requirements.txt
